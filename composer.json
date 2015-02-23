@@ -3,7 +3,7 @@
     "keywords": ["laravel", "translation", "laravel translation"],
     "description": "A Translation package for Laravel 4.2 with database and cache support",
     "homepage": "https://github.com/tavicu/translation",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "license": "MIT",
     "authors": [
         {
