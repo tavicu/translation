@@ -10,7 +10,7 @@ use Tavicu\Translation\Providers\LanguageProvider as LanguageProvider;
 use Tavicu\Translation\Providers\LanguageEntryProvider as LanguageEntryProvider;
 
 class FileLoaderCommand extends Command {
-
+	
 	/**
 	 * The console command name.
 	 *
