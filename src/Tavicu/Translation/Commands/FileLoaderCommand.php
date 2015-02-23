@@ -39,7 +39,7 @@ class FileLoaderCommand extends Command {
 		$this->languageEntryProvider  = $languageEntryProvider;
 		$this->fileLoader             = $fileLoader;
 		$this->finder                 = new Filesystem();
-		$this->path                   = app_path().'/lang';
+		$this->path                   = app_path() . DIRECTORY_SEPARATOR . 'lang';
 	}
 
 	/**
@@ -53,7 +53,7 @@ class FileLoaderCommand extends Command {
 
 		foreach($localeDirs as $localeDir)
 		{
-			$locale = str_replace($this->path.'/', '', $localeDir);
+			$locale = str_replace($this->path . DIRECTORY_SEPARATOR, '', $localeDir);
 			$language = $this->languageProvider->findByLocale($locale);
 
 			if ($language)
@@ -63,14 +63,14 @@ class FileLoaderCommand extends Command {
 
 				foreach($langDirectories as $langDirectory)
 				{
-					$group = str_replace($localeDir.'/', '', $langDirectory);
+					$group = str_replace($localeDir . DIRECTORY_SEPARATOR, '', $langDirectory);
 					$lines = $this->fireSubDir($localeDir, $langDirectory, $locale);
 					$this->languageEntryProvider->loadArray($lines, $language, $group, null, $locale == $this->fileLoader->getDefaultLocale());
 				}
 
 				foreach($langFiles as $langFile)
 				{
-					$group = str_replace(array($localeDir.'/', '.php'), '', $langFile);
+					$group = str_replace(array($localeDir . DIRECTORY_SEPARATOR, '.php'), '', $langFile);
 					$lines = $this->fileLoader->loadRawLocale($locale, $group);
 					$this->languageEntryProvider->loadArray($lines, $language, $group, null, $locale == $this->fileLoader->getDefaultLocale());
 				}
@@ -92,8 +92,8 @@ class FileLoaderCommand extends Command {
 		{
 			$filePathname = $file->getPathname();
 			$relativePath = $file->getRelativePath();
-			$dirGroup = str_replace(array($localeDir.'/', '.php'), '', $filePathname);
-			$fileGroup = str_replace(array($langDirectory.'/', '.php'), '', $filePathname);
+			$dirGroup = str_replace(array($localeDir . DIRECTORY_SEPARATOR, '.php'), '', $filePathname);
+			$fileGroup = str_replace(array($langDirectory . DIRECTORY_SEPARATOR, '.php'), '', $filePathname);
 
 			$lines = $this->fileLoader->loadRawLocale($locale, $dirGroup);
 
@@ -105,7 +105,7 @@ class FileLoaderCommand extends Command {
 			else
 			{
 				$lines = $this->fileLoader->loadRawLocale($locale, $dirGroup);
-				$fileDot = str_replace('/', '.', $fileGroup);
+				$fileDot = str_replace(DIRECTORY_SEPARATOR, '.', $fileGroup);
 				$array = array_merge_recursive($array, array_undot(array($fileDot => $lines)));
 			}
 		}
